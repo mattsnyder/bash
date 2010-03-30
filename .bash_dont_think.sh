@@ -10,15 +10,6 @@ __prompt_command() {
 		echo ${sub_dir#/}
 	}
 
-
-  # http://github.com/blog/297-dirty-git-state-in-your-prompt
-  function parse_git_dirty {
-    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "${_bold}*${_normal}"
-  }
-  function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
-  } 
-  
 	git_dir() {
 		base_dir=$(git rev-parse --show-cdup 2>/dev/null) || return 1
 		if [ -n "$base_dir" ]; then
@@ -28,10 +19,11 @@ __prompt_command() {
 		fi
 		sub_dir=$(git rev-parse --show-prefix)
 		sub_dir="/${sub_dir%/}"
-    ref=$(parse_git_branch)
+		ref=$(git symbolic-ref -q HEAD || git name-rev --name-only HEAD 2>/dev/null)
+		ref=${ref#refs/heads/}
 		vcs="git"
 		alias pull="git pull"
-		alias commit="git commit -v -a"
+		alias commit="git commit -a"
 		alias push="commit ; git push"
 		alias revert="git checkout"
 	}
@@ -42,7 +34,7 @@ __prompt_command() {
 		while [ -d "$base_dir/../.svn" ]; do base_dir="$base_dir/.."; done
 		base_dir=`cd $base_dir; pwd`
 		sub_dir="/$(sub_dir "${base_dir}")"
-		ref=`svnversion`
+		ref=$(svn info "$base_dir" | awk '/^URL/ { sub(".*/","",$0); r=$0 } /^Revision/ { sub("[^0-9]*","",$0); print r":"$0 }')
 		vcs="svn"
 		alias pull="svn up"
 		alias commit="svn commit"
@@ -98,10 +90,10 @@ PS1='\[\e]2;\h::$__pretty_pwd\a\e]1;$__tab_title\a\]\u:$__vcs_prefix\[${_bold}\]
 
 # Show the currently running command in the terminal title:
 # http://www.davidpashley.com/articles/xterm-titles-with-bash.html
-#if [ -z "$TM_SUPPORT_PATH"]; then
-#case $TERM in
-#  rxvt|*term|xterm-color)
-#    trap 'echo -e "\e]1;$working_on>$BASH_COMMAND<\007\c"' DEBUG
-#  ;;
-#esac
-#fi
+if [ -z "$TM_SUPPORT_PATH"]; then
+case $TERM in
+  rxvt|*term|xterm-color)
+    trap 'echo -e "\e]1;$working_on>$BASH_COMMAND<\007\c"' DEBUG
+  ;;
+esac
+fi
