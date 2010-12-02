@@ -32,6 +32,7 @@ alias mpoimport="ssh webadmin@192.168.1.228"
 alias dixcomdev='ssh -i ~/.ssh/id_dixcomdev ubuntu@184.72.252.12'
 alias staging='ssh -i ~/.ssh/dci-staging.pem ubuntu@184.72.252.16'
 alias performance='ssh -i ~/.ssh/id_dixcomstaging ubuntu@ec2-204-236-221-37.compute-1.amazonaws.com'
+alias smtp='ssh webadmin@192.168.129.209'
 
 alias gen=./script/generate
 alias server=./script/server

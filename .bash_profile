@@ -29,4 +29,3 @@ export AUTOFEATURE=true
 source ~/.bash_dont_think.sh
 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-alias smtp=ssh webadmin@192.168.129.209
