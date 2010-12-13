@@ -2,6 +2,8 @@ alias reload='source ~/.bashrc'
 
 alias hosts='dscacheutil -flushcache'
 
+alias path="echo \"${PATH//:/$'\n'}\""
+
 alias c=clear
 alias df='df -h'
 alias du='du -h'
