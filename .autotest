@@ -1,5 +1,6 @@
 # ~.autotest
 require 'autotest_notification'
+RSPEC=true
 SPEAKING = true
 DOOM_EDITION = false
 BUUF = false
@@ -9,7 +10,7 @@ SUCCESS_SOUND = ''
 FAILURE_SOUND = ''
 
 Autotest.add_hook(:initialize) {|at|
-   %w{.git .svn .hg .swp .DS_Store ._* tmp log}.each do |exception|
+   %w{.git .svn .hg .swp .DS_Store ._* tmp log .bundle}.each do |exception|
     at.add_exception(exception)
   end
 }
