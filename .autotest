@@ -1,13 +1,14 @@
 # ~.autotest
-require 'autotest_notification'
+# require 'autotest_notification'
+require 'autotest/growl'
 RSPEC=true
-SPEAKING = true
-DOOM_EDITION = false
-BUUF = false
-PENDING = false
+# SPEAKING = true
+# DOOM_EDITION = false
+# BUUF = false
+PENDING = true
 STICKY = false
-SUCCESS_SOUND = ''
-FAILURE_SOUND = ''
+# SUCCESS_SOUND = ''
+# FAILURE_SOUND = ''
 
 Autotest.add_hook(:initialize) {|at|
    %w{.git .svn .hg .swp .DS_Store ._* tmp log .bundle}.each do |exception|
