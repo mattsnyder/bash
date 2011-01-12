@@ -44,12 +44,22 @@ alias et='mate .'
 alias ett='mate app config lib db schema public spec test vendor/gems vendor/plutins Rakefile Capfile Vladfile Todofile README stories'
 alias em=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
 
+
 alias branch='git branch'
 alias commit='git commit -m'
 alias pull='git pull'
 alias push='git push'
 alias status='git status'
-alias history='git log -p --'
+alias hist='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+alias gs='git status '
+alias ga='git add '
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout '
+alias gk='gitk --all&'
+alias gx='gitx --all'
+
 
 alias startmysql='sudo /opt/local/share/mysql5/mysql/mysql.server start'
 alias stopmysql='sudo /opt/local/share/mysql5/mysql/mysql.server stop'
